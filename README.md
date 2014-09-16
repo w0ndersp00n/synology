@@ -1,12 +1,12 @@
-synology
-########
+Synology
+========
 
-Python binding to Synology DSM API.
+Python3 binding to Synology DSM API.
 I refer to the following document to add functions 1 by 1:
 
 - [Synology_File_Station_API_Guide.pdf](http://ukdl.synology.com/download/Document/DeveloperGuide/Synology_File_Station_API_Guide.pdf)
 
-Any help is welcome, please fork this repo and contact me.
+Any help is welcome, please fork this repo and make a pull request, or contact me directly.
 
 API coverage
 ============
@@ -46,10 +46,10 @@ Install
 =======
 
 ```bash
-git clone https://github.com/satreix/synology.git
+git clone https://github.com/satreix/synology.git synology
 cd synology
-virtualenv -p python3 .
-source bin/activate
+python -m venv env # I am talking python3 here
+source env/bin/activate
 
 cp example_config.py config.py
 # edit config.py
