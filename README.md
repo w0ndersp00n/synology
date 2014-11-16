@@ -69,8 +69,10 @@ logging.basicConfig(level=logging.INFO)
 syno = Syno(config.host, config.user, config.passwd)
 syno.req('SYNO.API.Info', query='all')
 syno.req('SYNO.FileStation.Info', end='info', extra='FileStation/', method='getinfo')
-syno.jsonprint(syno.req(syno.endpoint('SYNO.FileStation.List', cgi='FileStation/file_share.cgi', method='list_share')))
-syno.jsonprint(syno.req(syno.endpoint('SYNO.FileStation.Info', cgi='FileStation/info.cgi', method='getinfo')))
+syno.jsonprint(syno.req(syno.endpoint('SYNO.FileStation.List',
+    cgi='FileStation/file_share.cgi', method='list_share')))
+syno.jsonprint(syno.req(syno.endpoint('SYNO.FileStation.Info',
+    cgi='FileStation/info.cgi', method='getinfo')))
 
 # Instanciate a FileStation
 filestation = FileStation(config.host, config.user, config.passwd)
