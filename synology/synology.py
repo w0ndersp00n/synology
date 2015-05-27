@@ -69,11 +69,14 @@ class Syno():
         r = requests.get(endpoint)
         return self.get_response_data(r)
 
-    def req_binary(self, endpoint):
+    def req_binary(self, endpoint, **kw):
         logging.info('GET: ' + endpoint)
-        r = requests.get(endpoint)
+        r = requests.get(endpoint, **kw)
         if self.is_response_binary(r):
-            return r.content
+            if "stream" in kw:
+              return r
+            else:
+              return r.content
         self.get_response_data(r)
         return None
 
