@@ -228,7 +228,7 @@ class FileStation(Syno):
             }
         ))
 
-    def download(self, path, mode='open'):
+    def download(self, path, mode='open', **kwargs):
         """
         Download files/folders.
         """
@@ -240,7 +240,7 @@ class FileStation(Syno):
                 'path': path,
                 'mode': mode
             }
-        ))
+        ), **kwargs)
 
     def upload(self, path, data, overwrite=True):
         """
