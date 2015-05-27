@@ -42,6 +42,7 @@ TODO
 Install
 =======
 
+#### Git clone
 ```bash
 git clone https://github.com/satreix/synology.git synology
 cd synology
@@ -52,6 +53,12 @@ cp example_config.py config.py
 # edit config.py
 
 python example.py
+```
+
+
+#### With pip
+```bash
+pip install [--upgrade] https://github.com/satreix/synology/tarball/master#egg=synology
 ```
 
 Usage
