@@ -1,15 +1,15 @@
-Synology
-========
+# Synology
 
-Python3 binding to Synology DSM API.
-I refer to the following document:  [Synology_File_Station_API_Guide.pdf](http://ukdl.synology.com/download/Document/DeveloperGuide/Synology_File_Station_API_Guide.pdf).
-Any help is welcome, please fork this repo and make a pull request, or contact me directly.
+[![Build Status](https://travis-ci.org/satreix/synology.svg)](https://travis-ci.org/satreix/synology)
 
-API coverage
-============
+Python3 binding to Synology DSM API. I refer to the following document:
+[Synology_File_Station_API_Guide.pdf](http://ukdl.synology.com/download/Document/DeveloperGuide/Synology_File_Station_API_Guide.pdf).
+Any help is welcome, please fork this repo and make a pull request, or contact
+me directly.
 
-Implemented
------------
+## API coverage
+
+### Implemented
 
 | Endpoint                         | Description                                                                                                                                                                                          |
 |----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -26,8 +26,7 @@ Implemented
 | SYNO.FileStation.Upload          | Upload a file                                                                                                                                                                                        |
 | SYNO.FileStation.Download        | Download files/folders                                                                                                                                                                               |
 
-TODO
-----
+### TODO
 
 | Endpoint                         | Description                                                                                                                                                                                          |
 |----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -39,10 +38,8 @@ TODO
 | SYNO.FileStation.Compress        | Compress files/folders                                                                                                                                                                               |
 | SYNO.FileStation.BackgroundTask  | Get information regarding tasks of file operations which are run as the background process including copy, move, delete, compress and extract tasks or perform operations on these background tasks. |
 
-Install
-=======
-
-#### Git clone
+## Install
+### With git
 ```bash
 git clone https://github.com/satreix/synology.git synology
 cd synology
@@ -55,15 +52,12 @@ cp example_config.py config.py
 python example.py
 ```
 
-
-#### With pip
+### With pip
 ```bash
 pip install [--upgrade] https://github.com/satreix/synology/tarball/master#egg=synology
 ```
 
-Usage
-=====
-
+## Usage
 ```python
 import config
 from synology.synology import Syno
