@@ -9,7 +9,8 @@ setup(name='synology',
       license='MIT',
       packages=['synology'],
       install_requires=[
-          'urllib3'
+            'urllib3',
+            'requests',
       ],
       test_suite='nose.collector',
       tests_require=['nose'],

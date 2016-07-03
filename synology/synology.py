@@ -2,8 +2,8 @@ import json
 import logging
 import requests
 
-from errors import errors
-from utils import jsondump
+from .errors import errors
+from .utils import jsondump
 
 class Syno():
     def __init__(self, host, user, passwd, port='5000'):
