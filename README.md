@@ -39,37 +39,28 @@ me directly.
 | SYNO.FileStation.BackgroundTask  | Get information regarding tasks of file operations which are run as the background process including copy, move, delete, compress and extract tasks or perform operations on these background tasks. |
 
 ## Install
-### With git
-```bash
-git clone https://github.com/satreix/synology.git synology
-cd synology
-python -m venv env # I am talking python3 here
-source env/bin/activate
 
-cp example_config.py config.py
-# edit config.py
-
-python example.py
-```
-
-### With pip
 ```bash
 pip install [--upgrade] https://github.com/satreix/synology/tarball/master#egg=synology
 ```
 
+I do need to publish a PyPi version.
+
 ## Usage
 ```python
 import config
-from synology.synology import Syno
+
+from synology.api import Api
 from synology.filestation import FileStation
 from synology.utils import jsonprint
 
 logging.basicConfig(level=logging.INFO)
 
-# Instanciate directly a Syno
-syno = Syno(config.host, config.user, config.passwd)
+# Instanciate directly
+syno = Api(config.host, config.user, config.passwd)
 syno.req('SYNO.API.Info', query='all')
-syno.req('SYNO.FileStation.Info', end='info', extra='FileStation/', method='getinfo')
+syno.req('SYNO.FileStation.Info', end='info', extra='FileStation/',
+    method='getinfo')
 syno.jsonprint(syno.req(syno.endpoint('SYNO.FileStation.List',
     cgi='FileStation/file_share.cgi', method='list_share')))
 syno.jsonprint(syno.req(syno.endpoint('SYNO.FileStation.Info',

@@ -5,7 +5,8 @@ import requests
 from .errors import errors
 from .utils import jsondump
 
-class Syno():
+
+class Api:
     def __init__(self, host, user, passwd, port='5000'):
         self.host = host
         self.port = port
@@ -20,17 +21,18 @@ class Syno():
         self.logout()
 
     def login(self):
-        data = self.req(self.endpoint('SYNO.API.Info', query='SYNO.API.Auth,SYNO.FileStation.'))
+        data = self.req(self.endpoint('SYNO.API.Info',
+                                      query='SYNO.API.Auth,SYNO.FileStation.'))
         login_endpoint = self.endpoint(
             'SYNO.API.Auth',
             version=str(data['SYNO.API.Auth']['maxVersion']),
             cgi=data['SYNO.API.Auth']['path'],
             method='login',
             extra={
-                'account' : self.user,
-                'passwd' : self.passwd,
-                'session' : self.session_name,
-                'format' : 'sid'
+                'account': self.user,
+                'passwd': self.passwd,
+                'session': self.session_name,
+                'format': 'sid'
             }
         )
         data2 = self.req(login_endpoint)
@@ -43,7 +45,7 @@ class Syno():
             'SYNO.API.Auth',
             cgi='auth.cgi',
             method='logout',
-            extra={ 'session' : self.session_name }
+            extra={'session': self.session_name}
         )
         self.req(logout_endpoint)
 
@@ -102,8 +104,7 @@ class Syno():
                 return response_json['data']
             return ''
 
-        logging.error('failure - ' + str(response_json['error']['code']) +\
-	      ' - ' + errors[response_json['error']['code']])
+        logging.error('failure - ' + str(response_json['error']['code']) +' - ' + errors[response_json['error']['code']])
         return jsondump(response_json['error'])
 
     def is_response_binary(self, response):

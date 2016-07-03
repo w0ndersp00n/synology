@@ -1,26 +1,21 @@
 import os
 import time
 
-from synology import Syno
+from .api import Api
 
-class FileStation(Syno):
-    """
-    Access synology FileStation informations
-    """
+
+class FileStation(Api):
+    """Access Synology FileStation information"""
     add = 'real_path,size,owner,time,perm'
 
     def get_info(self):
-        """
-        Provide File Station information
-        """
+        """Provide File Station information"""
         return self.req(self.endpoint('SYNO.FileStation.Info',
                         cgi='FileStation/info.cgi', method='getinfo'))
 
     def list_share(self, writable_only=False, limit=25, offset=0,
                    sort_by='name', sort_direction='asc', additional=False):
-        """
-        List all shared folders
-        """
+        """List all shared folders"""
         return self.req(self.endpoint(
             'SYNO.FileStation.List',
             cgi='FileStation/file_share.cgi',
@@ -38,9 +33,7 @@ class FileStation(Syno):
     def list(self, path, limit=25, offset=0, sort_by='name',
              sort_direction='asc', pattern='', filetype='all',
              additional=False):
-        """
-        Enumerate files in a given folder
-        """
+        """Enumerate files in a given folder"""
         return self.req(self.endpoint(
             'SYNO.FileStation.List',
             cgi='FileStation/file_share.cgi',
@@ -58,9 +51,7 @@ class FileStation(Syno):
         ))
 
     def get_file_info(self, path, additional=False):
-        """
-        Get information of file(s)
-        """
+        """Get information of file(s)"""
         return self.req(self.endpoint(
             'SYNO.FileStation.List',
             cgi='FileStation/file_share.cgi',
@@ -72,9 +63,7 @@ class FileStation(Syno):
         ))
 
     def search(self, path, pattern):
-        """
-        Search for files/folders.
-        """
+        """Search for files/folders"""
         start = self.req(self.endpoint(
             'SYNO.FileStation.Search',
             cgi='FileStation/file_find.cgi',
@@ -106,7 +95,7 @@ class FileStation(Syno):
 
     def dir_size(self, path):
         """
-        Get the accumulated size of files/folders within folder(s).
+        Get the accumulated size of files/folders within folder(s)
 
         Returns:
             size in octets
@@ -132,9 +121,7 @@ class FileStation(Syno):
                 return int(status['total_size'])
 
     def md5(self, path):
-        """
-        Get MD5 of a file.
-        """
+        """Get MD5 of a file"""
         start = self.req(self.endpoint(
             'SYNO.FileStation.MD5',
             cgi='FileStation/file_md5.cgi',
@@ -156,9 +143,7 @@ class FileStation(Syno):
                 return status['md5']
 
     def permission(self, path):
-        """
-        Check if user has permission to write to a path.
-        """
+        """Check if user has permission to write to a path"""
         return self.req(self.endpoint(
             'SYNO.FileStation.CheckPermission',
             cgi='FileStation/file_permission.cgi',
@@ -172,7 +157,8 @@ class FileStation(Syno):
     def delete(self, path):
         """
         Delete file(s)/folder(s)
-        I'm using ths blocking method for now.
+
+        Using the blocking method for now
         """
         self.req(self.endpoint(
             'SYNO.FileStation.Delete',
@@ -184,7 +170,8 @@ class FileStation(Syno):
     def create(self, path, name, force_parent=True, additional=False):
         """
         Create folders
-        This does not support several path/name tupple as the API does
+
+        Does not support several path/name tuple as the API does
         """
         return self.req(self.endpoint(
             'SYNO.FileStation.CreateFolder',
@@ -199,9 +186,7 @@ class FileStation(Syno):
         ))
 
     def rename(self, path, name, additional=False):
-        """
-        Rename a file/folder
-        """
+        """Rename a file/folder"""
         return self.req(self.endpoint(
             'SYNO.FileStation.Rename',
             cgi='FileStation/file_rename.cgi',
@@ -214,9 +199,7 @@ class FileStation(Syno):
         ))
 
     def thumb(self, path, size='small', rotate='0'):
-        """
-        Get thumbnail of file.
-        """
+        """Get thumbnail of file"""
         return self.req_binary(self.endpoint(
             'SYNO.FileStation.Thumb',
             cgi='FileStation/file_thumb.cgi',
@@ -229,9 +212,7 @@ class FileStation(Syno):
         ))
 
     def download(self, path, mode='open', **kwargs):
-        """
-        Download files/folders.
-        """
+        """Download files/folders"""
         return self.req_binary(self.endpoint(
             'SYNO.FileStation.Download',
             cgi='FileStation/file_download.cgi',
@@ -243,9 +224,7 @@ class FileStation(Syno):
         ), **kwargs)
 
     def upload(self, path, data, overwrite=True):
-        """
-        Upload file.
-        """
+        """Upload file"""
         dir = os.path.dirname(path)
         file = os.path.basename(path)
         return self.req_post(self.base_endpoint('FileStation/api_upload.cgi'),
@@ -254,15 +233,12 @@ class FileStation(Syno):
                 'version': '1',
                 'method': 'upload',
                 'create_parents': True,
-                'overwrite': True if overwrite else None,   # None tells API to throw an error if file exists
+                # None tells API to throw an error if file exists
+                'overwrite': True if overwrite else None,
                 'dest_folder_path': dir,
                 '_sid': self.sid
             },
             files={
-                'file': (
-                    file,
-                    data,
-                    'application/octet-stream'
-                )
+                'file': (file, data, 'application/octet-stream')
             }
         )

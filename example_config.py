@@ -1,7 +1,7 @@
-'''
+"""
 Syno configuration
-'''
+"""
 
-host='localhost'
-user='admin'
-passwd='admin'
+host = 'localhost'
+user = 'admin'
+passwd = 'admin'
