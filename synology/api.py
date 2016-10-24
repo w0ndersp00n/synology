@@ -95,7 +95,7 @@ class Api:
             logging.error('http status: ' + str(response.status_code))
 
         try:
-            response_json = json.loads(response.text.strip().decode('utf-8'))
+            response_json = json.loads(response.text.strip())
         except:
             return response.content
 
